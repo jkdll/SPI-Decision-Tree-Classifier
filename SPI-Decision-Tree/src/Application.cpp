@@ -1,5 +1,11 @@
 #include <iostream>
+#include "headers/CSVDataLoader.h"
 
 int main(){
-	std::cout << "Hello World!";
+	CSVDataLoader CDL;
+	CDL.setPath("data//cars//car.data");
+	CDL.setConfigPath("data//cars//car.config");
+	CDL.load();
+	return 0;
 }
+
