@@ -10,7 +10,8 @@
 #include <stdio.h>
 #include <vector>
 
-#define ATTRIBUTELIST_H_
+#ifndef ATTRIBUTELIST_H
+#define ATTRIBUTELIST_H
 
 class AttributeList {
 public:
@@ -24,11 +25,14 @@ public:
 	void setLastElementClass(std::string c);
 	bool isLeaf();
 	void filter(std::string c);
+	void filterByIds(std::vector<int> i);
 	std::vector<std::string> getValues();
 	float getGiniIndex();
+	std::vector<int> getRowNumbers();
 private:
 	std::string sName;
 	bool bDiscrete;
 	std::vector<AttributeRecord> records;
 };
 
+#endif

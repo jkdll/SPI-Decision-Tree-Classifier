@@ -7,6 +7,9 @@
 
 #include "AttributeList.h"
 
+#ifndef NODE_H
+#define NODE_H
+
 class Node {
 public:
 	Node();
@@ -14,7 +17,9 @@ public:
 	void insertAttributes(std::vector<AttributeList> al);
 	bool isNodeLeaf();
 	std::string getBestSplit();
+	void split(std::string n, std::string v);
 private:
 	std::vector<AttributeList> attributes;
 	std::vector<Node> children;
 };
+#endif

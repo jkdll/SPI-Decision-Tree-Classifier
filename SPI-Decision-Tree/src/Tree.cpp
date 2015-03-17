@@ -6,6 +6,7 @@
  */
 
 #include "headers/Tree.h"
+#include <string>
 
 Tree::Tree() {
 	// TODO Auto-generated constructor stub
@@ -20,10 +21,23 @@ void Tree::buildTree(std::string data, std::string config){
 	CDL.setPath(data);
 	CDL.setConfigPath(config);
 	CDL.load();
-	CDL.printAttributeList();
+	std::vector<AttributeList> dataset = CDL.getAttributes();
+	Node n;
+	partition(dataset, n);
 
+}
+Node Tree::partition(std::vector<AttributeList> data, Node n){
+	n.insertAttributes(data);
+	if(n.isNodeLeaf()){
+		return n;
+	} else {
+		std::string name = n.getBestSplit();
+
+	}
+	return n;
 }
 void Tree::printTree(){
 
 }
+
 

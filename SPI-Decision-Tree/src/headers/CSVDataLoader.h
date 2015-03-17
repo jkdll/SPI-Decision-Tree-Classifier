@@ -5,11 +5,13 @@
  *      Author: jake
  */
 
-#define CSVDATALOADER_H_
 #include <iostream>
 #include <string>
 #include <vector>
 #include "AttributeList.h"
+
+#ifndef CSVDATALOADER_H_
+#define CSVDATALOADER_H_
 
 class CSVDataLoader {
 public:
@@ -38,3 +40,4 @@ private:
 	void initData();
 	std::vector<AttributeList> attributes;
 };
+#endif

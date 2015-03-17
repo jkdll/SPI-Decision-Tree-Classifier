@@ -37,3 +37,15 @@ std::string Node::getBestSplit(){
 	}
 	return name;
 }
+void Node::split(std::string n, std::string v){
+	int nAttrToSplit = 0;
+	for(int i = 0; i <= this->attributes.size() - 1; i++){
+		if(this->attributes[i].getName().compare(n) == 0){
+			this->attributes[nAttrToSplit].filter(v);
+		}
+	}
+	std::vector<int> rowNumbers = this->attributes[nAttrToSplit].getRowNumbers();
+	for(int i = 0; i <= this->attributes.size() - 1; i++){
+			this->attributes[nAttrToSplit].filterByIds(rowNumbers);
+	}
+}

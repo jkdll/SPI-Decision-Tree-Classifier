@@ -128,6 +128,7 @@ bool CSVDataLoader::load(){
 				}
 		}
 	}
+	this->attributes.erase(this->attributes.begin() + this->nTargetAttribute - 1);
 	int limit = this->nRecords;
 	std::cout << "Read " << this->nRecords << " Records from " + this->path + "\n";
 	return true;

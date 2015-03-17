@@ -55,7 +55,9 @@ bool AttributeList::isLeaf(){
 void AttributeList::filter(std::string c){
 	std::vector<int> indexes;
 	for(int i = 0; i <= this->records.size() - 1; i++){
-		indexes.push_back(i);
+		if(this->records[i].getValue().compare(c) == 0){
+			indexes.push_back(i);
+		}
 	}
 	for(int i = 0; i<= indexes.size() - 1; i++){
 		this->records.erase(this->records.begin()+indexes[i]);
@@ -68,6 +70,25 @@ std::vector<std::string> AttributeList::getValues(){
 	}
 	return vals;
 }
+void AttributeList::filterByIds(std::vector<int> i){
+	std::vector<int> indexes;
+	for(int i = 0; i <= this->records.size() - 1; i++){
+		if(std::find(indexes.begin(), indexes.end(), this->records[i].getRowNumber()) != indexes.end()){
+			indexes.push_back(i);
+		}
+	}
+	for(int i = 0; i<= indexes.size() - 1; i++){
+		this->records.erase(this->records.begin()+indexes[i]);
+	}
+}
+std::vector<int> AttributeList::getRowNumbers(){
+	std::vector<int> r;
+	for(int i = 0; records.size() - 1; i++){
+		r.push_back(records[i].getRowNumber());
+	}
+	return r;
+}
+
 float AttributeList::getGiniIndex(){
 	std::vector<std::string> vals = getValues();
 	int size = vals.size();
