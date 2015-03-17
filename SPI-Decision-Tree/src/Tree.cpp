@@ -15,4 +15,15 @@ Tree::Tree() {
 Tree::~Tree() {
 	// TODO Auto-generated destructor stub
 }
+void Tree::buildTree(std::string data, std::string config){
+	CSVDataLoader CDL;
+	CDL.setPath(data);
+	CDL.setConfigPath(config);
+	CDL.load();
+	CDL.printAttributeList();
+
+}
+void Tree::printTree(){
+
+}
 

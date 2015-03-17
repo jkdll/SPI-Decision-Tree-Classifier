@@ -1,12 +1,9 @@
 #include <iostream>
-#include "headers/CSVDataLoader.h"
+#include "headers/Tree.h"
 
 int main(){
-	CSVDataLoader CDL;
-	CDL.setPath("data//cars//car.data");
-	CDL.setConfigPath("data//cars//car.config");
-	CDL.load();
-	CDL.printAttributeList();
+	Tree t;
+	t.buildTree("data//cars//car.data","data//cars//car.config");
 	return 0;
 }
 

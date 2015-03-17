@@ -5,11 +5,15 @@
  *      Author: jake
  */
 
-#define TREE_H_
+#include "CSVDataLoader.h"
+
 
 class Tree {
 public:
 	Tree();
 	virtual ~Tree();
+	void buildTree(std::string data, std::string config);
+	void printTree();
+private:
 };
 
