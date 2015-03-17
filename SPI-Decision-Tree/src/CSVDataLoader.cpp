@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#include <cstdlib>
 
 
 CSVDataLoader::CSVDataLoader() {
@@ -62,17 +63,40 @@ bool CSVDataLoader::load(){
 			this->nAttributes++;
 			std::stringstream  attrStream(line);
 			int cellCount = 0;
+			std::string name;
 			while(std::getline(attrStream,cell,','))
 			{
-				if(cellCount == 1 && cell.compare("target") == 0){
-					this->nTargetAttribute = nAttributes;
+				AttributeList ar;
+				if(cellCount == 0){
+					// Set Name
+					name = cell;
 				}
-				std::cout << cell;
+				if(cellCount == 1){
+					if(cell.compare("discrete") == 0){
+						// Set Discrete
+						ar.setData(name,true);
+					} else if(cell.compare("continuous") == 0){
+						// Set Continuous
+						ar.setData(name,false);
+					} else if(cell.compare("target") == 0){
+						// Set Target Attribute
+						this->nTargetAttribute = this->nAttributes;
+						// Set Discrete
+						ar.setData(name,true);
+					} else {
+						// Error
+						std::cerr << "CSVDataLoader:: Error in CSV Configuration.";
+						std::exit(EXIT_FAILURE);
+					}
+					this->attributes.push_back(ar);
+				}
+				// std::cout << cell;
 				cellCount++;
 			}
 			cellCount = 0;
 		}
 	}
+
 	if(this->nTargetAttribute == -1 || this->nAttributes == 0){
 		std::cerr << "CSVDataLoader: Config Missing Attribute Data.\n";
 	}
@@ -84,21 +108,47 @@ bool CSVDataLoader::load(){
 	} else {
 		while(std::getline(data,line))
 		{
-			std::cout << line + "\n";
+			// std::cout << line + "\n";
 			std::stringstream  lineStream(line);
 			this->nRecords++;
-				/*while(std::getline(lineStream,cell,','))
+			int cellCount = 0;
+				while(std::getline(lineStream,cell,','))
 				{
-					std::cout << cell;
-				}*/
+					// TODO: Parallization Point
+					AttributeRecord ar;
+					ar.setRowNumber(this->nRecords);
+					ar.setValue(cell);
+					this->attributes[cellCount].addRecord(ar);
+					if(cellCount == (this->nTargetAttribute - 1)){
+						for(int i = 0; i <= this->attributes.size() - 1; i++){
+							this->attributes[i].setLastElementClass(cell);
+						}
+					}
+					cellCount++;
+				}
 		}
 	}
+	int limit = this->nRecords;
 	std::cout << "Read " << this->nRecords << " Records from " + this->path + "\n";
 	return true;
 }
 
 void CSVDataLoader::printData(){
-	std::cout << 'Records: ' << this->nRecords << ', Attributes: ' + this->nAttributes + '; Target: ' << this->nTargetAttribute;
+	std::cout << "Meta Data --> ";
+	std::cout << "Records: " << this->nRecords << ", Attributes: " << this->nAttributes << ", Target: " << this->nTargetAttribute << "\n";
+	std::cout << "Attribute List Data --> ";
+	std::cout << "Size: " << this->attributes.size();
+}
+void CSVDataLoader::printAttributeList(){
+	std::cout << "\n -------- PRINTING ATTRIBUTE LIST -------------- \n";
+	for(int i = 0; i <= this->attributes.size() - 1; i++){
+		std::cout << this->attributes[i].getName() + " \\ ";
+	}
+	std::cout << "\n";
+	for(int i = 0; i <= this->attributes.size() - 1; i++){
+		std::cout << this->attributes[i].getRecords()[0].getValue() << " (" << this->attributes[i].getRecords()[0].getClass() << "),";
+	}
+	std::cout << "\n";
 }
 void CSVDataLoader::initData(){
 	this->nAttributes = 0;

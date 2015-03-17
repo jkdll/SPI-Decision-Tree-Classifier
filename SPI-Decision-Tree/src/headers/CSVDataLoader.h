@@ -22,6 +22,7 @@ public:
 	int getNTargetAttribute();
 	std::vector<AttributeList> getAttributes();
 	void printData();
+	void printAttributeList();
 	// Modifiers
 	void setConfigPath(std::string c);
 	void setPath(std::string p);

@@ -19,7 +19,7 @@ public:
 	std::string getClass();
 	void setRowNumber(int r);
 	void setValue(std::string v);
-	void setVlass(std::string t);
+	void setClass(std::string t);
 private:
 	int tid;
 	std::string value;

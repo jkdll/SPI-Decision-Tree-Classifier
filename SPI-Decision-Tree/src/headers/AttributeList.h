@@ -6,6 +6,9 @@
  */
 
 #include <string>
+#include "AttributeRecord.h"
+#include <stdio.h>
+#include <vector>
 
 #define ATTRIBUTELIST_H_
 
@@ -16,8 +19,14 @@ public:
 	void setData(std::string n, bool d);
 	std::string getName();
 	bool isDiscrete();
+	std::vector<AttributeRecord> getRecords();
+	void addRecord(AttributeRecord ar);
+	void setLastElementClass(std::string c);
+	bool isLeaf();
+	void filter(std::string c);
 private:
 	std::string sName;
 	bool bDiscrete;
+	std::vector<AttributeRecord> records;
 };
 

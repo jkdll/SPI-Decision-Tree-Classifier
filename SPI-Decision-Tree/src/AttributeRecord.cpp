@@ -30,6 +30,6 @@ void AttributeRecord::setRowNumber(int r){
 void AttributeRecord::setValue(std::string v){
 	this->value = v;
 }
-void AttributeRecord::setVlass(std::string t){
+void AttributeRecord::setClass(std::string t){
 	this->target = t;
 }
