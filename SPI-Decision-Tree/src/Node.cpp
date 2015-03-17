@@ -41,11 +41,19 @@ void Node::split(std::string n, std::string v){
 	int nAttrToSplit = 0;
 	for(int i = 0; i <= this->attributes.size() - 1; i++){
 		if(this->attributes[i].getName().compare(n) == 0){
-			this->attributes[nAttrToSplit].filter(v);
+			nAttrToSplit = i;
 		}
 	}
-	std::vector<int> rowNumbers = this->attributes[nAttrToSplit].getRowNumbers();
-	for(int i = 0; i <= this->attributes.size() - 1; i++){
-			this->attributes[nAttrToSplit].filterByIds(rowNumbers);
+	std::vector<std::string> classes = this->attributes[nAttrToSplit].getValueClasses();
+	std::vector<AttributeList> newAttributeList = this->attributes;
+	for(int i = 0; i <= classes.size() - 1; i++){
+		newAttributeList[nAttrToSplit].filter(classes[i]);
+		std::vector<int> rowNumbers = this->attributes[nAttrToSplit].getRowNumbers();
+		for(int j = 0; j <= newAttributeList.size() - 1; j++){
+			newAttributeList[j].filterByIds(rowNumbers);
+		}
 	}
+	Node newNode;
+	newNode.insertAttributes(newAttributeList);
+	this->children.push_back(newNode);
 }

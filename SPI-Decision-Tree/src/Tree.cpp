@@ -32,7 +32,7 @@ Node Tree::partition(std::vector<AttributeList> data, Node n){
 		return n;
 	} else {
 		std::string name = n.getBestSplit();
-
+		n.split(name,"");
 	}
 	return n;
 }

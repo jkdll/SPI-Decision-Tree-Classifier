@@ -77,18 +77,20 @@ void AttributeList::filterByIds(std::vector<int> i){
 			indexes.push_back(i);
 		}
 	}
-	for(int i = 0; i<= indexes.size() - 1; i++){
+	for(std::vector<int>::size_type i = 0; i != indexes.size(); i++){
 		this->records.erase(this->records.begin()+indexes[i]);
 	}
 }
 std::vector<int> AttributeList::getRowNumbers(){
 	std::vector<int> r;
-	for(int i = 0; records.size() - 1; i++){
+	for(std::vector<AttributeRecord>::size_type i = 0; i != records.size(); i++) {
 		r.push_back(records[i].getRowNumber());
 	}
+	//for(int i = 0; records.size() - 1; i++){
+	//	r.push_back(records[i].getRowNumber());
+	//}
 	return r;
 }
-
 float AttributeList::getGiniIndex(){
 	std::vector<std::string> vals = getValues();
 	int size = vals.size();
@@ -108,4 +110,18 @@ float AttributeList::getGiniIndex(){
 	}
 	gini = 1 - gini;
 	return gini;
+}
+std::vector<std::string> AttributeList::getValueClasses(){
+	std::vector<std::string> vals = getValues();
+		int size = vals.size();
+		std::vector<std::string> classes;
+		float gini;
+		for(int i = 0; i <= vals.size() - 1; i++){
+			if(std::find(classes.begin(), classes.end(), vals[i]) != classes.end()) {
+			    // do nothing...
+			} else {
+			    classes.push_back(vals[i]);
+			}
+		}
+		return classes;
 }

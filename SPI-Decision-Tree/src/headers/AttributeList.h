@@ -29,6 +29,7 @@ public:
 	std::vector<std::string> getValues();
 	float getGiniIndex();
 	std::vector<int> getRowNumbers();
+	std::vector<std::string> getValueClasses();
 private:
 	std::string sName;
 	bool bDiscrete;
