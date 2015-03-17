@@ -24,6 +24,7 @@ public:
 	void setLastElementClass(std::string c);
 	bool isLeaf();
 	void filter(std::string c);
+	int getGiniIndex();
 private:
 	std::string sName;
 	bool bDiscrete;
